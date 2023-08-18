@@ -1,0 +1,24 @@
+[submodule "linux-svsm"]
+	path = linux-svsm
+	url = https://github.com/svsm-vtpm/linux-svsm.git
+	branch = svsm-vtpm-ae
+[submodule "ovmf"]
+	path = ovmf
+	url = https://github.com/svsm-vtpm/ovmf.git
+	branch = svsm-vtpm-preview
+[submodule "qemu"]
+	path = qemu
+	url = https://github.com/svsm-vtpm/qemu.git
+	branch = svsm-vtpm-preview
+[submodule "keylime"]
+	path = keylime
+	url = https://github.com/svsm-vtpm/keylime.git
+	branch = dev-amd-vtpm
+[submodule "linux/host"]
+	path = linux/host
+	url = https://github.com/svsm-vtpm/linux.git
+	branch = svsm-preview-hv
+[submodule "linux/guest"]
+	path = linux/guest
+	url = https://github.com/svsm-vtpm/linux.git
+	branch = svsm-vtpm-preview-guest

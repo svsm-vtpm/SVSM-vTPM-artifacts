@@ -1,0 +1,1 @@
+# SVSM-vTPM-artifacts

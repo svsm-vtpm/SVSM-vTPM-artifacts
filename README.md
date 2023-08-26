@@ -120,3 +120,12 @@ sudo tpm2_pcrread
   ```bash
   ./prepare.sh run_qvtpm
   ```
+
+* To generate the tpm_overhead plot, invoke the script `fig4.sh` that extracts
+  the data from the above generated logs to plot the figure.
+```bash
+cd tpm_overhead
+./fig4.sh
+```
+
+* The figure should be written to `tpm_overhead.pdf`.

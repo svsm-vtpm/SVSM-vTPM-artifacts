@@ -12,6 +12,7 @@ install_prereqs() {
   sudo apt install -y nasm iasl flex bison libelf-dev libssl-dev
   sudo apt install -y automake libclang-15-dev libtool build-essential autoconf autoconf-archive libc6-dev-i386 clang-15
   sudo apt install -y cloud-image-utils qemu-utils ovmf
+  sudo apt install -y libcap-ng-dev libattr1-dev swtpm swtpm-tools
 
   if ! dpkg -l | grep "libssl1.1:amd64"; then
     DPKG_TMP=$(mktemp -d)
@@ -67,6 +68,7 @@ get_image_and_resize() {
   # get the cloud image
   if [ ! -f ${IMAGE_FILE}.orig ]; then
     wget https://cloud-images.ubuntu.com/jammy/current/${IMAGE_FILE}
+    cp ${IMAGE_FILE}{,.orig}
   fi
 
   cp ${IMAGE_FILE}.orig ${IMAGE_FILE}
@@ -112,6 +114,7 @@ mounts:
 runcmd:
  - cd /mnt/shared
  - apt install -y ./*-guest*.deb
+ - cloud-init clean --logs
  - shutdown
 EOF
 
@@ -143,19 +146,11 @@ install_new_guest_kernel() {
 
 run_svsm_benchmark() {
   pushd ${SCRIPT_DIR}/images
+
   cat > user-data-run <<EOF
 #cloud-config
 password: ubuntu
 ssh_pwauth: false
-ssh_authorized_keys:
-  - ${PUBKEY}
-
-package_update: true
-package_upgrade: true
-packages:
-  - tpm2-tools
-mounts:
- - [ host0, /mnt/shared, 9p, "trans=virtio,version=9p2000.L" ]
 
 runcmd:
  - cd /mnt/shared

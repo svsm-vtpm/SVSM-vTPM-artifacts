@@ -78,19 +78,18 @@ defaults in `/etc/default/grub'
 
 ## Evaluation
 
-* To make the artifact evaluation process easier, we have prepared a cloudlab
+* To make the artifact evaluation process more accessible, we have prepared a cloudlab
   node with the appropriate BIOS options and the host kernel that enables
   SEV-SNP.
 
-## Launch guest
+### Launch guest
 
-* To play around with the guest image and interact with the SVSM-vTPM, we need
-  to launch the guest. `prepare.sh` script installs the guest kernel
-  automatically.
+* To play around with the guest image and interact with the SVSM-vTPM, launch the guest.
+  Once everything is built (usually it is on the preconfigured node), one can directly launch the guest using the script.
+  `prepare.sh` script installs the guest kernel automatically.
 
 ```bash
 ./prepare.sh prep_guest
-sudo ./launch-qemu.sh -hda ../../images/jammy-server-cloudimg-amd64.img -mem 5G -console serial -novirtio -smp 1 -ssh-forward -sev-snp -svsmcrb -svsm ../svsm.bin
 ```
 
 * Login to the guest via ssh. `prepare.sh` should append a guest configuration
@@ -105,7 +104,7 @@ ls /dev/tpm*
 sudo tpm2_pcrread
 ```
 
-## TPM Benchmarks
+### TPM Benchmarks
 
 * The script automatically invokes the appropriate guest image (Qemu based vTPM
   or SVSM based vTPM) and runs the TPM benchmark automatically and collects the
